@@ -1,0 +1,47 @@
+.swal2-container{
+    h2{
+        &.swal2-title{
+            padding-top: 50px;
+            color: var(--Black, #000);
+            font-family: Poppins;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+
+    .swal2-actions{
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        gap: 10px;
+        padding-right: 10px;
+        margin-top: 20px;
+
+        button{
+            display: flex;
+            padding: 10px 18px;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            border-radius: 5px;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+
+            &.swal2-confirm {
+                color: #FFF;
+                background: #4259C1;
+            }
+
+            &.swal2-cancel{
+                background-color: #FFF !important;
+                border: 1px solid #D9D9D9;
+                color: black;
+            }
+        }
+    }
+}

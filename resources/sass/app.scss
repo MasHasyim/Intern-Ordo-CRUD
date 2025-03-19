@@ -1,0 +1,153 @@
+@import "./utils/fonts";
+@import "./utils/variables";
+
+@import "./layout/app";
+
+@import "./pages/auth/login";
+@import "./pages/modal";
+@import "./pages/swal2";
+@import "./pages/status";
+@import "./pages/components/form-control";
+@import "./pages/components/filter-tabel";
+@import "./pages/components/button";
+@import "./pages/components/datatabel";
+@import "./pages/components/card-base";
+
+// SUPER ADMIN
+@import "./pages/super-admin/dashboard/dashboard";
+@import "./pages/super-admin/dashboard/dashboard-washing";
+@import "./pages/super-admin/dashboard/dashboard-balancing";
+@import "./pages/super-admin/dashboard/dashboard-checking";
+@import "./pages/super-admin/dashboard/dashboard-delivery";
+@import "./pages/super-admin/dashboard/dashboard-drying";
+@import "./pages/super-admin/dashboard/dashboard-folding";
+@import "./pages/super-admin/dashboard/dashboard-ironing";
+@import "./pages/super-admin/dashboard/dashboard-spotting";
+@import "./pages/super-admin/dashboard/dashboard-mesin-rusak";
+@import "./pages/super-admin/dashboard/dashboard-trolley-rusak";
+@import "./pages/super-admin/dashboard/dashboard-spotting-rusak";
+@import "./pages/super-admin/dashboard/dashboard-truck-rusak";
+
+@import "./pages/super-admin/transaksi/collection-form/components/collection-detail";
+@import "./pages/super-admin/transaksi/collection-form/collection-form";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-add";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-ubah";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-sku-detail";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-sku-tidak-lolos-detail";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-log";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-tracking";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-need-revision";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-need-approve";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-uncomplete-1";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-uncomplete-2";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-complete";
+@import "./pages/super-admin/transaksi/collection-form/collection-form-detail-draft";
+
+@import "./pages/super-admin/transaksi/rewash/rewash";
+@import "./pages/super-admin/transaksi/rewash/rewash-detail";
+
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-add";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-ubah";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-detail-done";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-detail-log";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-detail-sku";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-detail-ongoing";
+@import "./pages/super-admin/transaksi/delivery-form/delivery-form-detail-need-approve";
+
+@import "./pages/super-admin/transaksi/security/security";
+@import "./pages/super-admin/transaksi/security/security-detail";
+@import "./pages/super-admin/transaksi/security/security-detail2";
+@import "./pages/super-admin/transaksi/security/security-detail-df";
+
+@import "./pages/super-admin/master/master-user/master-user";
+@import "./pages/super-admin/master/master-user/master-user-add";
+@import "./pages/super-admin/master/master-user/master-user-ubah";
+@import "./pages/super-admin/master/master-user/master-user-detail";
+
+@import "./pages/super-admin/master/master-role/master-role";
+@import "./pages/super-admin/master/master-role/master-role-add";
+@import "./pages/super-admin/master/master-role/master-role-ubah";
+
+@import "./pages/super-admin/master/master-trip/master-trip";
+@import "./pages/super-admin/master/master-trip/master-trip-add";
+@import "./pages/super-admin/master/master-trip/master-trip-ubah";
+
+@import "./pages/super-admin/master/master-customer/master-customer";
+@import "./pages/super-admin/master/master-customer/master-customer-add";
+@import "./pages/super-admin/master/master-customer/master-customer-ubah";
+@import "./pages/super-admin/master/master-customer/master-customer-detail";
+
+@import "./pages/super-admin/master/master-mesin/master-mesin";
+@import "./pages/super-admin/master/master-mesin/master-mesin-add";
+@import "./pages/super-admin/master/master-mesin/master-mesin-ubah";
+@import "./pages/super-admin/master/master-mesin/master-mesin-detail";
+@import "./pages/super-admin/master/master-mesin/master-mesin-detail";
+@import "./pages/super-admin/master/master-mesin/master-mesin-report";
+
+@import "./pages/super-admin/master/master-trolley/master-trolley";
+@import "./pages/super-admin/master/master-trolley/master-trolley-add";
+@import "./pages/super-admin/master/master-trolley/master-trolley-ubah";
+@import "./pages/super-admin/master/master-trolley/master-trolley-detail";
+@import "./pages/super-admin/master/master-trolley/master-trolley-report";
+
+@import "./pages/super-admin/master/master-sopir/master-sopir";
+@import "./pages/super-admin/master/master-sopir/master-sopir-add";
+@import "./pages/super-admin/master/master-sopir/master-sopir-ubah";
+@import "./pages/super-admin/master/master-sopir/master-sopir-detail";
+@import "./pages/super-admin/master/master-sopir/master-sopir-report";
+@import "./pages/super-admin/master/master-sopir/master-sopir-report-detail";
+@import "./pages/super-admin/master/master-sopir/master-sopir-detail-df";
+
+@import "./pages/super-admin/master/master-truck/master-truck";
+@import "./pages/super-admin/master/master-truck/master-truck-add";
+@import "./pages/super-admin/master/master-truck/master-truck-ubah";
+@import "./pages/super-admin/master/master-truck/master-truck-detail";
+@import "./pages/super-admin/master/master-truck/master-truck-report";
+@import "./pages/super-admin/master/master-truck/master-truck-riwayat";
+
+@import "./pages/super-admin/master/master-pabrik/master-pabrik";
+@import "./pages/super-admin/master/master-pabrik/master-pabrik-add";
+@import "./pages/super-admin/master/master-pabrik/master-pabrik-ubah";
+
+@import "./pages/super-admin/master/master-kategori/master-kategori";
+@import "./pages/super-admin/master/master-kategori/master-kategori-add";
+@import "./pages/super-admin/master/master-kategori/master-kategori-ubah";
+
+@import "./pages/super-admin/master/master-sub-kategori/master-sub-kategori";
+@import "./pages/super-admin/master/master-sub-kategori/master-sub-kategori-add";
+@import "./pages/super-admin/master/master-sub-kategori/master-sub-kategori-ubah";
+
+@import "./pages/super-admin/master/master-spotting/master-spotting";
+@import "./pages/super-admin/master/master-spotting/master-spotting-add";
+@import "./pages/super-admin/master/master-spotting/master-spotting-ubah";
+@import "./pages/super-admin/master/master-spotting/master-spotting-detail";
+
+@import "./pages/super-admin/check-and-balance/check/check";
+@import "./pages/super-admin/check-and-balance/check/check-cf-list";
+@import "./pages/super-admin/check-and-balance/check/check-detail";
+
+@import "./pages/super-admin/check-and-balance/balance/balance";
+@import "./pages/super-admin/check-and-balance/balance/balance-cf-list";
+@import "./pages/super-admin/check-and-balance/balance/balance-cf-list2";
+@import "./pages/super-admin/check-and-balance/balance/balance-detail";
+@import "./pages/super-admin/check-and-balance/balance/balance-detail2";
+@import "./pages/super-admin/check-and-balance/balance/balance-tracking";
+
+@import "./pages/super-admin/report/report";
+@import "./pages/super-admin/report/report-detail-regular";
+@import "./pages/super-admin/report/report-detail-express";
+@import "./pages/super-admin/report/report-detail-delivery-form";
+
+@import "./pages/super-admin/laporan-scale/laporan-scale";
+
+@import "./pages/super-admin/inventory/inventory";
+@import "./pages/super-admin/inventory/inventory-detail";
+@import "./pages/super-admin/inventory/inventory-detail-inventory";
+
+@import "./pages/super-admin/notification/notification";
+@import "./pages/super-admin/notification/notification-add";
+@import "./pages/super-admin/notification/notification-ubah";
+
+@import "./pages/super-admin/setting/setting";

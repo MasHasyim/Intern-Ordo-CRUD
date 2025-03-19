@@ -1,0 +1,228 @@
+.status {
+    padding: 7px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    background-color: #d2d2d2;
+    color: black;
+
+    p {
+        font-weight: 400;
+    }
+
+    &.Need_Approve,
+    &.Need_Approve,
+    &.need_approve {
+        background-color: #faad14;
+        color: white;
+    }
+
+    &.Need_Revision,
+    &.need_revision {
+        background-color: #ffedb4;
+        color: #eb9901;
+    }
+
+    &.Regular,
+    &.regular,
+    &.hapus-missing {
+        background-color: #1768f2;
+        color: white;
+    }
+
+    &.Express,
+    &.express {
+        background-color: #ffa500;
+        color: white;
+    }
+
+    &.Complete,
+    &.complete,
+    &.kirim-saldo {
+        background-color: #e9f7ef;
+        color: #28a745;
+    }
+
+    &.Uncomplete,
+    &.uncomplete,
+    &.hapus-excess {
+        color: #f4406b;
+        background-color: #fdd9e1;
+    }
+
+    &.Draft,
+    &.draft {
+        background-color: #d2d2d2;
+        color: black;
+    }
+
+    &.Outstanding,
+    &.outstanding {
+        background-color: #fdd9e1;
+        color: #f4406b;
+    }
+
+    &.Partial_Outstanding,
+    &.partial_outstanding {
+        background-color: #ffa500;
+        color: white;
+    }
+
+    &.Balance,
+    &.balance {
+        background-color: #e9f7ef;
+        color: #28a745;
+        margin: 0;
+    }
+
+    &.Reported,
+    &.reported {
+        background-color: #cbd9fd;
+        color: #524fa0 !important;
+    }
+
+    &.Scanned,
+    &.scanned {
+        background-color: #e9f7ef;
+        color: #28a745 !important;
+    }
+
+    &.Laporan-Terkirim,
+    &.laporan-terkirim {
+        background-color: #fff4cc;
+        color: #ffc107 !important;
+    }
+
+    &.Laporan-Diterima,
+    &.laporan-diterima {
+        background-color: #e9f7ef;
+        color: #28a745 !important;
+    }
+
+    // laporan diperbaiki biru
+    &.Laporan-Diperbaiki,
+    &.laporan-diperbaiki {
+        background-color: #cbd9fd;
+        color: #524fa0 !important;
+    }
+
+    &.ongoing,
+    &.Ongoing {
+        background-color: #ffa500;
+        color: white;
+    }
+
+    &.ready-to-ship,
+    &.Ready-to-Ship {
+        background-color: #a2c6e7;
+        color: #3f59c0;
+    }
+
+    &.done,
+    &.Done {
+        background-color: #e9f7ef;
+        color: #28a745;
+    }
+
+    &.found,
+    &.Found {
+        background-color: #e9f7ef;
+        color: #28a745;
+    }
+}
+
+.is-invalid {
+    border: 1px solid red !important;
+}
+
+.status-tabel {
+    display: flex;
+    padding: 8px 10px !important;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    // flex: 1 0 0;
+    border-radius: 8px;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &.active,
+    &.terkirim {
+        background: #e9f7ef;
+        color: #28a745;
+    }
+
+    &.inactive {
+        background: rgba(244, 64, 107, 0.2);
+        color: #f4406b;
+    }
+
+    &.belum-terkirim {
+        color: black;
+        background: #d2d2d2;
+    }
+
+    &.finished {
+        background: black;
+        color: white;
+    }
+
+    &.washing {
+        background: #1768f2;
+        color: white;
+    }
+
+    &.spotting {
+        background: #ec4899;
+        color: white;
+    }
+
+    &.drying {
+        color: white;
+        background: #facc15;
+    }
+
+    &.finishing {
+        background: #28a745;
+        color: white;
+    }
+
+    &.checking {
+        background: #faad14;
+        color: white;
+    }
+
+    &.balancing {
+        background: #a855f7;
+        color: white;
+    }
+
+    &.df {
+        background: #14b8a6;
+        color: white;
+    }
+
+    &.delivery {
+        background: #6b7280;
+        color: white;
+    }
+
+    &.mutasi-trolley {
+        color: white;
+        background: #a16207;
+    }
+
+    &.mutasi-truck {
+        color: white;
+        background: #bd5995;
+    }
+
+    &.ready {
+        color: white;
+        background: #b7b7b7;
+    }
+}

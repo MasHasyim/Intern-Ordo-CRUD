@@ -1,0 +1,12 @@
+.filter {
+    display: grid;
+    gap: 15px;
+
+    &.two {
+        grid-template-columns: 80% auto;
+    }
+
+    &.three {
+        grid-template-columns: 65% 15% auto;
+    }
+}

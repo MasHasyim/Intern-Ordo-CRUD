@@ -1,0 +1,139 @@
+@import "/resources/sass/utils/variables";
+
+.p-login {
+    position: relative;
+    background: #1F295A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    
+    input::-ms-reveal,
+    input::-ms-clear {
+        opacity: 0;
+    }
+
+    .login-title {
+        text-align: center;
+        justify-content: center;
+        font-size: 40px;
+        color: white;
+        margin-bottom: 40px;
+    }
+
+    .login-vector {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .login-content {
+        z-index: 100;
+        height: fit-content;
+        width: fit-content;
+
+        .login-logo {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 24px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            &.large {
+                height: 120px;
+            }
+        }
+
+        .login-card {
+            display: flex;
+            width: 450px;
+            padding: 30px;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+            background: white;
+            box-shadow: -2.489px -2.489px 7.466px 0px rgba(90, 94, 100, 0.20), 2.489px 2.489px 7.466px 0px rgba(0, 0, 0, 0.30);
+
+            .filter-group {
+                margin-top: 20px;
+            }
+
+            .item {
+                display: flex;
+                flex-direction: column;
+                width: 400px;
+            }
+
+            p {
+                color: $gray-dark;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                margin-bottom: 2px;
+                padding: 0;
+            }
+
+            .input-group {
+                display: flex;
+                width: 50%;
+                margin-bottom: 20px;
+            }
+
+            input {
+                width: 100%;
+                height: 40px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                padding: 10px;
+                &::placeholder {
+                    color: $gray-dark;
+                    font-weight: 300;
+                    font-size: 15px;
+                }
+            }
+
+            .input-wrapper {
+                position: relative;
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+
+            .input-prefix {
+                position: absolute;
+                left: 10px;
+                color: #334A34;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .input-postfix {
+                position: absolute;
+                right: 15px;
+                top: 33%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            a {
+                background-color: $secondary;
+                color: white;
+                border-radius: 12px;
+                font-size: 15px;
+                justify-content: center;
+                display: flex;
+                padding: 15px;
+                border: none;
+                text-decoration: none;
+                font-weight: 500;
+            }
+        }
+    }
+}

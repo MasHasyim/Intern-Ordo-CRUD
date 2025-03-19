@@ -1,0 +1,67 @@
+.card-base{
+    display: flex;
+    padding: 30px 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    align-self: stretch;
+
+    border-radius: 15px;
+    border: 1px solid #F5F5F5;
+    background: var(--Base-White, #FFF);
+
+    .top{
+        width: 100%;
+        display: flex;
+        padding-bottom: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        border-bottom: 1px solid var(--Secondary, #DADEFB);
+        flex: 1 0 0;
+        p{
+            margin-bottom: 0;
+            color: var(--Black, #000);
+            font-family: Poppins;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+
+    .bottom{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        .item{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            padding: 0px 25px;
+            &.wt-border{
+                border-left: 2px solid #DADEFB;
+                border-right: 2px solid #DADEFB;
+            }
+
+            .label{
+                color: var(--Text, #686868);
+                font-family: Poppins;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            .value{
+                color: var(--Black, #000);
+                font-family: Poppins;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+    }
+}
