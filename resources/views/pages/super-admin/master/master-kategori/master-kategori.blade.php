@@ -68,9 +68,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($categories as $category)
                     <tr>
-                        <td>FB</td>
-                        <td>FnB</td>
+                        <td>{{ $category->code}}</td>
+                        <td>{{ $category->name}}</td>
                         <td>
                             <div class="menu-button">
                                 <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.kategori.ubah') }}"
@@ -79,17 +80,8 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>HT</td>
-                        <td>Hotel</td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.kategori.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-trash hapus" style="color: #DC3545;"></a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>

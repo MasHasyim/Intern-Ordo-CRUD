@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Models\BrokenReport;
 use App\Models\DeliveryForm;
 use App\Models\User;
@@ -10,6 +11,14 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::post('/super-admin/master/kategori/add', [CategoryController::class, 'store'])->name('categories.store');
+
+
+
+
+
+
 
 Route::view('/login', 'pages.auth.login')->name('login');
 
@@ -94,6 +103,9 @@ Route::name("super-admin.")->prefix("super-admin")->group(function () {
             Route::view('/', 'pages.super-admin.master.master-kategori.master-kategori')->name("index");
             Route::view('/add', 'pages.super-admin.master.master-kategori.master-kategori-add')->name("add");
             Route::view('/ubah', 'pages.super-admin.master.master-kategori.master-kategori-ubah')->name("ubah");
+
+            Route::post('/add', [CategoryController::class, 'store'])->name('store');
+            Route::get('/', [CategoryController::class, 'index'])->name("index");
         });
 
         Route::name("sub-kategori.")->prefix("sub-kategori")->group(function () {
