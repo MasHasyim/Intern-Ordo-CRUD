@@ -16,16 +16,17 @@
                     <i class="fa fa-check-circle" style="color: #12D962;"></i>
                     <p class="text-1">Success</p>
                     <p class="text-2">Create Kategori Succesfully</p>
-                    <a href="{{ route('super-admin.master.kategori.index') }}" class="button">OK</a>
+                    <a href="{{ route('super-admin.master.kategori.category.index') }}" class="button">OK</a>
                 </div>
             </div>
         </div>
 
-        <form method="POST" action="{{ route('super-admin.master.kategori.store') }}">
+        <form method="POST" action="{{ route('super-admin.master.kategori.category.store') }}">
             @csrf
+            {{-- @method('PUT') --}}
             <div class="top-page">
                 <div class="groupDiv">
-                    <a href="{{ route('super-admin.master.kategori.index') }}"><img
+                    <a href="{{ route('super-admin.master.kategori.category.index') }}"><img
                             src='{{ asset('images/icon/arrow-back.svg') }}'></a>
                     <h1 class="text-1">Daftar Kategori<span>/ Tambah Kategori</span></h1>
                 </div>

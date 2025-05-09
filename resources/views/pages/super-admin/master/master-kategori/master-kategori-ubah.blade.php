@@ -8,34 +8,38 @@
                     <i class="fa fa-check-circle" style="color: #12D962;"></i>
                     <p class="text-1">Success</p>
                     <p class="text-2">Update Kategori Succesfully</p>
-                    <a href="{{ route('super-admin.master.kategori.index') }}" class="button">OK</a>
+                    <a href="{{ route('super-admin.master.kategori.category.index') }}" class="button">OK</a>
                 </div>
             </div>
         </div>
 
-        <div class="top-page">
-            <div class="groupDiv">
-                <a href="{{ route('super-admin.master.kategori.index') }}"><img
-                        src='{{ asset('images/icon/arrow-back.svg') }}'></a>
-                <h1 class="text-1">Daftar Kategori <span>/ Ubah Kategori</span></h1>
+        <form method="POST" class="formdata" action="{{ route('super-admin.master.kategori.category.update', $category->id) }}">
+            @csrf
+            @method('PUT')
+            <div class="top-page">
+                <div class="groupDiv">
+                    <a href="{{ route('super-admin.master.kategori.category.index') }}"><img
+                            src='{{ asset('images/icon/arrow-back.svg') }}'></a>
+                    <h1 class="text-1">Daftar Kategori <span>/ Ubah Kategori</span></h1>
+                </div>
+                <button id="simpan" class="button" type="submit">Simpan</button>
             </div>
-            <a id="simpan" class="button">Simpan</a>
-        </div>
 
-        <div class="box">
-            <div class="box2">
-                <div class="text-box">
-                    <p style="margin-bottom: 5px"><span>*</span>Kode Kategori</p>
-                    <input type="text" placeholder="Kode Kategori">
+            <div class="box">
+                <div class="box2">
+                    <div class="text-box">
+                        <p style="margin-bottom: 5px"><span>*</span>Kode Kategori</p>
+                        <input type="text" placeholder="Kode Kategori" name="code" value="{{ $category->code }}">
+                    </div>
+                </div>
+                <div class="box2">
+                    <div class="text-box">
+                        <p style="margin-bottom: 5px"><span>*</span>Nama Kategori</p>
+                        <input type="text" placeholder="Nama Kategori" name="name" value="{{ $category->name }}">
+                    </div>
                 </div>
             </div>
-            <div class="box2">
-                <div class="text-box">
-                    <p style="margin-bottom: 5px"><span>*</span>Nama Kategori</p>
-                    <input type="text" placeholder="Masukkan Nama Kategori">
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 @endsection
 

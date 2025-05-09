@@ -12,7 +12,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::post('/super-admin/master/kategori/add', [CategoryController::class, 'store'])->name('categories.store');
+// Route::post('/super-admin/master/kategori/add', [CategoryController::class, 'store'])->name('categories.store');
 
 
 
@@ -100,18 +100,25 @@ Route::name("super-admin.")->prefix("super-admin")->group(function () {
         });
 
         Route::name("kategori.")->prefix("kategori")->group(function () {
-            Route::view('/', 'pages.super-admin.master.master-kategori.master-kategori')->name("index");
+            Route::resource('category', CategoryController::class);
+            // Route::get('/', [CategoryController::class, 'index'])->name("index");
+            // Route::get('/super-admin/master/kategori/ubah/{id}', [CategoryController::class, 'edit'])->name('edit');
+            // Route::put('/super-admin/master/kategori/{id}/update', [CategoryController::class, 'update'])->name('update');
+            // Route::post('/add', [CategoryController::class, 'store'])->name('store');
+
+
             Route::view('/add', 'pages.super-admin.master.master-kategori.master-kategori-add')->name("add");
             Route::view('/ubah', 'pages.super-admin.master.master-kategori.master-kategori-ubah')->name("ubah");
-
-            Route::post('/add', [CategoryController::class, 'store'])->name('store');
-            Route::get('/', [CategoryController::class, 'index'])->name("index");
         });
 
         Route::name("sub-kategori.")->prefix("sub-kategori")->group(function () {
             Route::view('/', 'pages.super-admin.master.master-sub-kategori.master-sub-kategori')->name("index");
             Route::view('/add', 'pages.super-admin.master.master-sub-kategori.master-sub-kategori-add')->name("add");
             Route::view('/ubah', 'pages.super-admin.master.master-sub-kategori.master-sub-kategori-ubah')->name("ubah");
+        });
+
+        Route::name("master.")->prefix("master")->group(function(){
+            Route::resource('category', CategoryController::class);
         });
     });
 });

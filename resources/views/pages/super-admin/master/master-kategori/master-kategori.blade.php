@@ -62,13 +62,14 @@
             <table id="table-master-user">
                 <thead>
                     <tr>
+                        <th class="d-none"></th>
                         <th>Kode Kategori</th>
                         <th>Kategori</th>
                         <th style="text-align: center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    {{-- @foreach ($categories as $category)
                     <tr>
                         <td>{{ $category->code}}</td>
                         <td>{{ $category->name}}</td>
@@ -80,7 +81,7 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
 
                 </tbody>
             </table>
@@ -92,6 +93,24 @@
     <script>
         $(document).ready(function() {
             $('#table-master-user').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('super-admin.master.kategori.category.index') }}',
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    }, {
+                        data: 'code',
+                    },
+                    {
+                        data: 'name',
+                    },
+                    {
+                        data: 'action',
+                        sortable: false,
+                        searchable: false,
+                    },
+                ],
                 scrollX: true,
                 responsive: true,
                 columnDefs: [{
@@ -155,6 +174,10 @@
                     });
                 }
             });
+
+            $('#table-master-user').DataTable().on('draw.dt', function() {
+                $(this).DataTable().columns.adjust();
+            });
             $(document).on('click', '.ellipsis-button', function(e) {
                 e.stopPropagation();
                 var $modal = $(this).siblings('.modal-ellipsis');
@@ -165,6 +188,11 @@
             $(document).on('click', function() {
                 $('.modal-ellipsis').hide();
             });
+
+        });
+
+        $('searchable').on('keyup', function() {
+            $('#table-master-user').DataTable().search($('searchable').val()).draw();
         });
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -176,6 +204,9 @@
             const popup2 = document.getElementById('popUpHapus');
             const cancelButton2 = document.getElementById('cancelButton2');
             const hapusButtons = document.querySelectorAll('.hapus');
+            const yesButton = document.querySelector('.pop-up-hapus .button2');
+            let deleteRoute = '';
+
 
             function togglePopup() {
                 popup.style.display = popup.style.display === 'none' ? 'flex' : 'none';
@@ -210,9 +241,48 @@
                     togglePopupHapus();
                 }
             });
-            hapusButtons.forEach(button => {
-                button.addEventListener('click', togglePopupHapus2);
+            document.addEventListener('click', function(e) {
+                const hapusBtn = e.target.closest('.hapus');
+                if (hapusBtn) {
+                    deleteRoute = hapusBtn.dataset.route;
+                    togglePopupHapus2();
+                }
             });
+            yesButton.addEventListener('click', function() {
+                if (deleteRoute === '') return;
+
+                fetch(deleteRoute, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Pastikan response dari server mengandung data.message atau sukses lainnya
+                        if (data.success) { // Menambahkan pengecekan terhadap success
+                            // alert(data.success); // Menampilkan pesan sukses
+                            $('#table-master-user').DataTable().ajax.reload(null,
+                            false); // Reload DataTable
+                            togglePopupHapus(); // Tutup popup setelah klik "Yes"
+                        } else if (data.error) {
+                            alert(data.error); // Menampilkan pesan error jika ada
+                        } else {
+                            alert('Terjadi kesalahan yang tidak diketahui.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat menghapus data.');
+                    });
+            });
+
         });
     </script>
 @endpush

@@ -107,7 +107,7 @@
                         </div>
                     </a>
 
-                    <a class="outer-icon" id="master-kategori" href="{{ route('super-admin.master.kategori.index') }}">
+                    <a class="outer-icon" id="master-kategori" href="{{ route('super-admin.master.kategori.category.index') }}">
                         <div class="icon-close-dashboard2">
                             <div class="group-icon2">
                                 <p>Master Kategori</p>
