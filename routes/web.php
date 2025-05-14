@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 use App\Models\BrokenReport;
 use App\Models\DeliveryForm;
 use App\Models\User;
@@ -117,7 +118,7 @@ Route::name("super-admin.")->prefix("super-admin")->group(function () {
             Route::view('/ubah', 'pages.super-admin.master.master-sub-kategori.master-sub-kategori-ubah')->name("ubah");
         });
 
-        Route::name("master.")->prefix("master")->group(function(){
+        Route::name("master.")->prefix("master")->group(function () {
             Route::resource('category', CategoryController::class);
         });
     });
