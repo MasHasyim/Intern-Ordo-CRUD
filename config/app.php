@@ -123,8 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'provider' => [
-        App\Providers\RouteServiceProvider::class,
-    ],
+    // 'provider' => [
+    //     App\Providers\RouteServiceProvider::class,
+    // ],
 
 ];

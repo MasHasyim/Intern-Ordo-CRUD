@@ -26,7 +26,7 @@
         <img class="login-vector" src="{{ asset('images/background/wave.png') }}" alt="">
         <div class="login-content">
             <p class="login-title">Selamat Datang</p>
-            <form id="loginForm" method="POST">
+            <form id="loginForm" method="POST" onsubmit=" return validateForm()">
                 <div class="login-card">
                     <div class="login-card-header">
                         <img src="{{ asset('images/icon/logo.svg') }}" alt="logo">
@@ -34,13 +34,17 @@
                     <div class="filter-group">
                         <div class="item">
                             <p>Username</p>
-                            <input type="text" name="username" class="form-control" placeholder="Username">
+                            <input type="text" name="username" class="form-control" placeholder="Username" required>
+                            <span class="text-danger" id="usernameWarning" style="display: none">Please fill in your
+                                username.</span>
                         </div>
                         <div class="item">
                             <p>Kata Sandi</p>
                             <div class="input-wrapper">
                                 <input type="password" name="password" class="form-control" placeholder="Passsword"
-                                    id="password">
+                                    id="password" required>
+                                <span class="text-danger" id="passwordWarning" style="display: none">Please fill in your
+                                    password.</span>
                                 <i class="bi bi-eye-slash input-postfix" id="togglePassword"
                                     onclick="togglePasswordVisibility()"></i>
                             </div>
@@ -76,6 +80,28 @@
             icon.classList.remove('bi-eye');
             icon.classList.add('bi-eye-slash');
         }
+    }
+
+    function validateForm() {
+        let isvalid = true;
+        const username = document.querySelctor('input[name="email"]');
+        const password = document.querySelctor('input[name="password"]');
+
+        document.getElementById('usernameWarning').style.display = 'none';
+        document.getElementById('passwordWarning').style.display = 'none';
+
+        if (!username.value) {
+            document.getElementById('usernameWarning').style.display = 'block';
+            isvalid = false;
+        }
+
+        if (!username.value) {
+            document.getElementById('passwordWarning').style.display = 'block';
+            isvalid = false;
+        }
+
+        return isvalid;
+
     }
 </script>
 

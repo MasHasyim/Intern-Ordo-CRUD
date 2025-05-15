@@ -13,6 +13,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+
+
+
 // Route::post('/super-admin/master/kategori/add', [CategoryController::class, 'store'])->name('categories.store');
 
 
@@ -123,3 +126,5 @@ Route::name("super-admin.")->prefix("super-admin")->group(function () {
         });
     });
 });
+
+require __DIR__ . '/backend.php';

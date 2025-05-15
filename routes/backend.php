@@ -1,3 +1,6 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubCategoryController;
 
 Route::name('backend.')->prefix('backend')->group(function() {
