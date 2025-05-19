@@ -11,41 +11,59 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+
+    public function showLogin()
+    {
+        return view('pages.auth.login');
+    }
+
     public function login(LoginRequest $request)
     {
-        $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
-        ]);
+        $credentials = $request->only('username', 'password');
 
-        $user = User::where('username', $request->username)->orwhere('email', $request->username)->first();
-
-        if (!$user || !$user->is_active) {
-            throw ValidationException::withMessages([
-                'username' => 'Invalid username or password',
-            ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('backend.dashboard'));
         }
 
-        //if password not contains letter and number validate it
-        if (!preg_match('/[A-Za-z]/',$request->password) || !preg_match('/[0-9]/',$request->password)) {
-            throw ValidationException::withMessages([
-                'password' => 'Password setidaknya berisi huruf dan angka',
-            ]);
-        }
+        return back()->withErrors([
+            'username' => 'username atau password salah.',
+        ])->withInput();
 
-        $permissions = $user->getAllPermission()->pluck('type')->unique()->contains('web');
 
-        if (!$permissions) {
-            throw ValidationException::withMessages([
-                'username' => 'Akses tidak diizinkan',
-            ]);
-        }
+        // $request->validate([
+        //     'username' => ['required'],
+        //     'password' => ['required'],
+        // ]);
 
-        $request->authenticate('web');
+        // $user = User::where('username', $request->username)->orwhere('email', $request->username)->first();
 
-        $request->session()->regenerate();
+        // if (!$user || !$user->is_active) {
+        //     throw ValidationException::withMessages([
+        //         'username' => 'Invalid username or password',
+        //     ]);
+        // }
 
-        return redirect()->intended('/');
+        // //if password not contains letter and number validate it
+        // if (!preg_match('/[A-Za-z]/',$request->password) || !preg_match('/[0-9]/',$request->password)) {
+        //     throw ValidationException::withMessages([
+        //         'password' => 'Password setidaknya berisi huruf dan angka',
+        //     ]);
+        // }
+
+        // $permissions = $user->getAllPermission()->pluck('type')->unique()->contains('web');
+
+        // if (!$permissions) {
+        //     throw ValidationException::withMessages([
+        //         'username' => 'Akses tidak diizinkan',
+        //     ]);
+        // }
+
+        // $request->authenticate('web');
+
+        // $request->session()->regenerate();
+
+        // return redirect()->intended('/');
 
     }
     public function destroy()
@@ -56,7 +74,6 @@ class AuthController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect()->route('home');
-
+        return redirect('/login');
     }
 }

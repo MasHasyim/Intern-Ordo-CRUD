@@ -29,52 +29,52 @@ class LoginRequest extends FormRequest
         return [
             'username' => ['required','string'],
             'password' => ['required','string'],
-            'remember_me' => ['nullable','boolean']
+            // 'remember_me' => ['nullable','boolean']
         ];
     }
 
-    public function authenticate($guardName) 
-    {
-        $this->ensureIsNotRateLimited();
+    // public function authenticate($guardName) 
+    // {
+    //     $this->ensureIsNotRateLimited();
 
-        $credentials = $this->only('password');
-        $loginField = $this->input('username');
+    //     $credentials = $this->only('password');
+    //     $loginField = $this->input('username');
 
-        $fieldType = filter_var($loginField, FILTER_VALIDATE_EMAIL) ? 'email':'username';
-        $credentials[$fieldType] = $loginField;
+    //     $fieldType = filter_var($loginField, FILTER_VALIDATE_EMAIL) ? 'email':'username';
+    //     $credentials[$fieldType] = $loginField;
 
-        $remember = $this->filled('remember_me');
+    //     $remember = $this->filled('remember_me');
 
-        if (!Auth::guard($guardName)->attempt($credentials,$remember)){
-            RateLimiter::hit($this->throttlekey());
+    //     if (!Auth::guard($guardName)->attempt($credentials,$remember)){
+    //         RateLimiter::hit($this->throttlekey());
 
-            throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
-            ]);
-        }
+    //         throw ValidationException::withMessages([
+    //             'username' => trans('auth.failed'),
+    //         ]);
+    //     }
 
-        RateLimiter::clear($this->throttlekey());
-    }
+    //     RateLimiter::clear($this->throttlekey());
+    // }
 
-    public function ensureIsNotRateLimited()
-    {
-        if (!RateLimiter::tooManyAttempts($this->throttlekey(),5)) {
-            return;
-        }
+    // public function ensureIsNotRateLimited()
+    // {
+    //     if (!RateLimiter::tooManyAttempts($this->throttlekey(),5)) {
+    //         return;
+    //     }
 
-        event(new Lockout($this));
-        $seconds = RateLimiter::availableIn($this->throttlekey());
+    //     event(new Lockout($this));
+    //     $seconds = RateLimiter::availableIn($this->throttlekey());
 
-        throw ValidationException::withMessages([
-            'username'=> trans('auth.throttle',[
-                'second' => $seconds,
-                'minutes'=> ceil($seconds / 60),
-            ]),
-        ]);   
-    }
+    //     throw ValidationException::withMessages([
+    //         'username'=> trans('auth.throttle',[
+    //             'second' => $seconds,
+    //             'minutes'=> ceil($seconds / 60),
+    //         ]),
+    //     ]);   
+    // }
 
-    public function throttlekey()
-    {
-        return Str::transliterate(Str::lower($this->input('username')) . '|' . $this->ip());
-    }
+    // public function throttlekey()
+    // {
+    //     return Str::transliterate(Str::lower($this->input('username')) . '|' . $this->ip());
+    // }
 }

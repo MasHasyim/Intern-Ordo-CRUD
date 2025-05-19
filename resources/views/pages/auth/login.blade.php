@@ -26,11 +26,21 @@
         <img class="login-vector" src="{{ asset('images/background/wave.png') }}" alt="">
         <div class="login-content">
             <p class="login-title">Selamat Datang</p>
-            <form id="loginForm" method="POST" onsubmit=" return validateForm()">
+            <form id="loginForm" method="POST" action="{{ route('backend.login') }}">
+                @csrf
                 <div class="login-card">
                     <div class="login-card-header">
                         <img src="{{ asset('images/icon/logo.svg') }}" alt="logo">
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger mt-3 w-100">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="filter-group">
                         <div class="item">
                             <p>Username</p>
@@ -52,9 +62,7 @@
                     </div>
                     <div class="filter-group">
                         <div class="item">
-                            <button type="button"
-                                onclick="window.location.href = `{{ route('super-admin.dashboard.index') }}`"
-                                class="border-0 bg-transparent">
+                            <button type="submit" class="border-0 bg-transparent">
                                 <a class="login-button">
                                     LOGIN
                                 </a>
@@ -84,7 +92,7 @@
 
     function validateForm() {
         let isvalid = true;
-        const username = document.querySelctor('input[name="email"]');
+        const username = document.querySelctor('input[name="username"]');
         const password = document.querySelctor('input[name="password"]');
 
         document.getElementById('usernameWarning').style.display = 'none';
@@ -95,7 +103,7 @@
             isvalid = false;
         }
 
-        if (!username.value) {
+        if (!password.value) {
             document.getElementById('passwordWarning').style.display = 'block';
             isvalid = false;
         }
