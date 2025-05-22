@@ -41,9 +41,14 @@
         </div>
 
         <!-- Logout Link -->
-        <a class="logout" href="{{ route('login') }}">
-            <img class="icon-logout" src="{{ asset('images/icon/logout.svg') }}" alt="logo" />
-        </a>
+        <form method="POST" action="{{ route('backend.logout') }}" style="display: inline">
+            @csrf
+            <button type="submit" class="logout" style="background: none; boreder: none; padding: 0;">
+                <img class="icon-logout" src="{{ asset('images/icon/logout.svg') }}" alt="logo" />
+            </button>
+        </form>
+        {{-- <a class="logout" href="{{ route('backend.logout') }}">
+        </a> --}}
     </div>
 
     <!-- Open Sidebar Container -->
@@ -107,7 +112,8 @@
                         </div>
                     </a>
 
-                    <a class="outer-icon" id="master-kategori" href="{{ route('super-admin.master.kategori.category.index') }}">
+                    <a class="outer-icon" id="master-kategori"
+                        href="{{ route('super-admin.master.kategori.category.index') }}">
                         <div class="icon-close-dashboard2">
                             <div class="group-icon2">
                                 <p>Master Kategori</p>

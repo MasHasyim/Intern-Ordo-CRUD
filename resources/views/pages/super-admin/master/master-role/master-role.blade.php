@@ -58,7 +58,7 @@
                 </div>
                 <div class="button">
                     <div class="fas fa-plus" style="font-size: 15px; margin-right: 5px;"></div>
-                    <a href="{{ route('super-admin.master.role.add') }}"">Tambah Role</a>
+                    <a href="{{ route('super-admin.master.role.add') }}">Tambah Role</a>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>LD</td>
                         <td>Leader</td>
                         <td>
@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
         </div>
@@ -204,6 +204,16 @@
     <script>
         $(document).ready(function() {
             $('#table-master-user').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('backend.datamaster.roles.index') }}',
+                columns: [
+                    {data: 'id', visible: false},
+                    {data: 'code',},
+                    {data: 'name',},
+                    {data: 'status',},
+                    {data: 'action', sortable: false, searchable: false,},
+                ],
                 scrollX: true,
                 responsive: true,
                 columnDefs: [{

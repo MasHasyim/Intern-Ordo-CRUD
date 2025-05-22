@@ -15,9 +15,9 @@ class RoleSeeder extends Seeder
     {
         Role::create
         ([
-            'code' => 'ADMIN',
-            'name' =>'Administrator',
-            'status' => 'active',
+            'code' => 'SA',
+            'name' =>'Super Admin',
+            'status' => 'Active',
         ]);
     }
 }
