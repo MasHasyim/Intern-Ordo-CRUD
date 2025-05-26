@@ -8,32 +8,38 @@
                     <i class="fa fa-check-circle" style="color: #12D962;"></i>
                     <p class="text-1">Success</p>
                     <p class="text-2">Create Role Succesfully</p>
-                    <a href="{{ route('super-admin.master.role.index') }}" class="button">OK</a>
+                    <a href="{{ route('backend.datamaster.roles.index') }}" class="button">OK</a>
                 </div>
             </div>
         </div>
 
-        <div class="top-page">
-            <div class="groupDiv">
-                <a href="{{ route('super-admin.master.role.index') }}"><img
-                        src='{{ asset('images/icon/arrow-back.svg') }}'></a>
-                <h1 class="text-1">Daftar Role <span>/ Tambah Role</span></h1>
+        <form method="POST" action="{{ route('backend.datamaster.roles.store') }}" class="formdata">
+            @csrf
+            <div class="top-page">
+                <div class="groupDiv">
+                    <a href="{{ route('backend.datamaster.roles.index') }}"><img
+                            src='{{ asset('images/icon/arrow-back.svg') }}'></a>
+                    <h1 class="text-1">Daftar Role <span>/ Tambah Role</span></h1>
+                </div>
+                <button class="border-0 bg-transparent" type="submit">
+                    <a class="button">Simpan</a>
+                </button>
             </div>
-            <a id="simpan" class="button">Simpan</a>
-        </div>
 
-        <div class="out-box">
-            <div class="box" style="width: 100%;">
-                <div class="text-box">
-                    <p><span>*</span>Kode Role</p>
-                    <input type="text" class="input-style" placeholder="Masukkan Nama">
-                </div>
-                <div class="text-box">
-                    <p><span>*</span>Nama Role</p>
-                    <input type="text" class="input-style" placeholder="Masukkan Nama Role">
+            <div class="out-box">
+                <div class="box" style="width: 100%;">
+                    <div class="text-box">
+                        <p><span>*</span>Kode Role</p>
+                        <input type="text" class="input-style" placeholder="Masukkan Nama" required>
+                    </div>
+                    <div class="text-box">
+                        <p><span>*</span>Nama Role</p>
+                        <input type="text" class="input-style" placeholder="Masukkan Nama Role" required>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+
     </div>
 @endsection
 

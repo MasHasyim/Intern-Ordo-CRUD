@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Contracts\DataTable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\Contracts\DataTable;
+use Illuminate\Console\Events\ArtisanStarting;
 
 class RoleController extends Controller
 {
@@ -25,10 +30,10 @@ class RoleController extends Controller
                     return '<div><p>Inactive</p></div>';
                 })
                 ->addColumn('action', function ($item) {
-                    return view('pages.super-admin.master.master-role.action', compact($item));
+                    return view('pages.super-admin.master.master-role.action', get_defined_vars());
                 })
                 ->rawColumns(['status', 'action'])
-                ->tojson();
+                ->toJson();
         }
 
         return view('pages.super-admin.master.master-role.master-role');
@@ -76,22 +81,58 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('pages.super-admin.master.master-role.master-role-ubah', get_defined_vars());
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Role $role)
     {
-        //
+        $validatedData = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'code' => ['required', 'string', 'max:255', 'unique:roles,code' . $role->id],
+        ]);
+
+        if ($role->id == 1) {
+            return back()->with('error', 'Cannot update this role');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $role->update($validatedData);
+            Artisan::call('cache:clear');
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        if ($role->id == 1 || $role->id == Auth::user()->role_id) {
+            return back()->with('error', 'Cannot delete this role');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $role->delete();
+            Artisan::call('cache:clear');
+
+            DB::commit();
+
+            return redirect()->route('backend.datamaster.roles.index')->with('succes', 'Role berhasil dihapus.');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return back()->with('error', 'Terjadi kesalahan saat menghapus role: ' . $e->getMessage());
+        }
     }
 }
