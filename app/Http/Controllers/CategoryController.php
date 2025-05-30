@@ -51,9 +51,8 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
         return view('pages.super-admin.master.master-kategori.master-kategori-ubah', get_defined_vars());
     }
 
@@ -62,14 +61,14 @@ class CategoryController extends Controller
      */
     public function update(Category $category)
     {
-        $ValidatedData = request()->validate([
+        $validatedData = request()->validate([
             'code' => ['required', 'string', 'max:255', 'unique:categories,code,' . $category->id],
             'name' => ['required', 'string', 'max:255'],
         ]);
 
         try {
             DB::beginTransaction();
-            $category->update($ValidatedData);
+            $category->update($validatedData);
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();

@@ -19,20 +19,24 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if (request()->wantsJson()) {
+        if (request()->ajax()) {
             $query = Role::query();
 
             return DataTables::of($query)
-                ->editColumn('status', function ($item) {
-                    if ($item->status === 'active') {
-                        return '<div><p>Active</p></div>';
-                    }
-                    return '<div><p>Inactive</p></div>';
+                // ->editColumn('status', function ($item) {
+                //     if ($item->status === 'active') {
+                //         return '<div><p>Active</p></div>';
+                //     }
+                //     return '<div><p>Inactive</p></div>';
+                // })
+                ->addColumn('status', function ($item) {
+                    return $item->status === 'active' ? 'Active' : 'Inactive';
                 })
+
                 ->addColumn('action', function ($item) {
                     return view('pages.super-admin.master.master-role.action', get_defined_vars());
                 })
-                ->rawColumns(['status', 'action'])
+                // ->rawColumns(['status', 'action'])
                 ->toJson();
         }
 
@@ -65,7 +69,7 @@ class RoleController extends Controller
 
         ]);
 
-        return redirect()->route('backend.datamaster.roles.index')->with('succes', 'Role berhasil ditambahkan');
+        return redirect()->route('backend.datamaster.roles.index')->with('success', 'Role berhasil ditambahkan');
     }
 
     /**
@@ -79,8 +83,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
+
+        $role = Role::findOrFail($id);
         return view('pages.super-admin.master.master-role.master-role-ubah', get_defined_vars());
     }
 
@@ -89,9 +95,10 @@ class RoleController extends Controller
      */
     public function update(Role $role)
     {
+
         $validatedData = request()->validate([
             'name' => ['required', 'string', 'max:255'],
-            'code' => ['required', 'string', 'max:255', 'unique:roles,code' . $role->id],
+            'code' => ['required', 'string', 'max:255', 'unique:roles,code,' . $role->id],
         ]);
 
         if ($role->id == 1) {
@@ -128,11 +135,23 @@ class RoleController extends Controller
 
             DB::commit();
 
-            return redirect()->route('backend.datamaster.roles.index')->with('succes', 'Role berhasil dihapus.');
+            return redirect()->route('backend.datamaster.roles.index')->with('success', 'Role berhasil dihapus.');
         } catch (Exception $e) {
             DB::rollBack();
 
             return back()->with('error', 'Terjadi kesalahan saat menghapus role: ' . $e->getMessage());
         }
+    }
+
+    public function changeStatus(Role $role)
+    {
+        $role->status = $role->status === 'active' ? 'inactive' : 'Active';
+        $role->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diperbaruhi.',
+            'new_status' => $role->status
+        ]);
     }
 }

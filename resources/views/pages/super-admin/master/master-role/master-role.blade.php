@@ -88,10 +88,6 @@
                 serverSide: true,
                 ajax: '{{ route('backend.datamaster.roles.index') }}',
                 columns: [{
-                        data: 'id',
-                        visible: false
-                    },
-                    {
                         data: 'code',
                     },
                     {
@@ -103,7 +99,11 @@
                     {
                         data: 'action',
                         sortable: false,
-                        searchable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'id',
+                        visible: false
                     },
                 ],
                 scrollX: true,
