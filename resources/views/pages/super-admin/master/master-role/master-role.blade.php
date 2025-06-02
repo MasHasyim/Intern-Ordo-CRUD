@@ -11,8 +11,10 @@
                 <div class="content2">
                     <p>Status</p>
                     <div class="select-wrapper-arrow">
-                        <select name="" id="">
-                            <option value="" selected disabled>Active</option>
+                        <select name="status" id="statusSelect">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+
                         </select>
                     </div>
                 </div>
@@ -60,6 +62,7 @@
                     <div class="fas fa-plus" style="font-size: 15px; margin-right: 5px;"></div>
                     <a href="{{ route('super-admin.master.role.add') }}">Tambah Role</a>
                 </div>
+
             </div>
         </div>
 
@@ -101,10 +104,10 @@
                         sortable: false,
                         searchable: false
                     },
-                    {
-                        data: 'id',
-                        visible: false
-                    },
+                    // {
+                    //     data: 'id',
+                    //     visible: false
+                    // },
                 ],
                 scrollX: true,
                 responsive: true,
@@ -179,6 +182,17 @@
             $(document).on('click', function() {
                 $('.modal-ellipsis').hide();
             });
+
+            $(document).on('click', '.ubahStatus', function() {
+                $('.ubahStatus').removeClass('active');
+                $(this).addClass('active');
+                $('#statusSelect').val($(this).data('status'));
+                $('#popUpUbah').css('display', 'flex');
+            });
+
+            $(document).on('click', '.modal-ellipsis a:contains("Hapus")', function() {
+                $('#popUpHapus').css('display', 'flex');
+            });
         });
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -214,9 +228,18 @@
                     togglePopup();
                 }
             });
-            ubahStatusButtons.forEach(button => {
-                button.addEventListener('click', togglePopup2);
-            });
+            // ubahStatusButtons.forEach(button => {
+            //     button.addEventListener('click', togglePopup2);
+            // });
+
+            // ubahStatusButtons.forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         document.querySelectorAll('.ubahStatus').forEach(btn => btn.classList.remove(
+            //             'active'));
+            //         this.classList.add('active');
+            //         togglePopup2();
+            //     });
+            // })
 
             cancelButton2.addEventListener('click', togglePopupHapus);
             popup2.addEventListener('click', (e) => {
@@ -227,6 +250,38 @@
             hapusButtons.forEach(button => {
                 button.addEventListener('click', togglePopupHapus2);
             });
+        });
+
+        document.querySelector('.button2').addEventListener('click', function() {
+            const selectedStatus = document.getElementById('statusSelect').value;
+            const targetId = document.querySelector('.ubahStatus.active')?.getAttribute('data-id');
+
+            if (!targetId) return alert('ID tidak ditemukan');
+
+            fetch(`/backend/datamaster/roles/${targetId}/change-status`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        status: selectedStatus
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Status berhasil diubah ke: ' + data.new_status);
+                        $('#table-master-user').DataTable().ajax.reload();
+                        document.getElementById('popUpUbah').style.display = 'none';
+                    } else {
+                        alert('Gagal ubah status');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Terjadi kesalahan.');
+                });
         });
     </script>
 @endpush

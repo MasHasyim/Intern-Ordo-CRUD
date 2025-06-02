@@ -30,7 +30,7 @@
                 <div class="box" style="width: 100%;">
                     <div class="text-box">
                         <p><span>*</span>Kode Role</p>
-                        <input type="text" name="code" class="input-style" placeholder="Masukkan Nama" required>
+                        <input type="text" name="code" class="input-style" placeholder="Masukkan kode" required>
                     </div>
                     <div class="text-box">
                         <p><span>*</span>Nama Role</p>

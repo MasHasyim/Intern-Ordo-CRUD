@@ -59,13 +59,13 @@ class RoleController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|max:10|unique:roles,code',
             'name' => 'required|string|max:225',
-            'status' => 'required|in:active,inactive',
+            // 'status' => 'required|in:active,inactive',
         ]);
 
         Role::create([
             'code' => $validated['code'],
             'name' => $validated['name'],
-            'status' => $validated['status'],
+            // 'status' => $validated['status'],
 
         ]);
 
@@ -83,10 +83,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
 
-        $role = Role::findOrFail($id);
+        // $role = Role::findOrFail($id);
         return view('pages.super-admin.master.master-role.master-role-ubah', get_defined_vars());
     }
 
@@ -97,25 +97,26 @@ class RoleController extends Controller
     {
 
         $validatedData = request()->validate([
-            'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:roles,code,' . $role->id],
+            'name' => ['required', 'string', 'max:255'],
         ]);
 
-        if ($role->id == 1) {
-            return back()->with('error', 'Cannot update this role');
-        }
+        // if ($role->id == 1) {
+        //     return back()->with('error', 'Cannot update this role');
+        // }
 
         try {
             DB::beginTransaction();
 
             $role->update($validatedData);
-            Artisan::call('cache:clear');
+            // Artisan::call('cache:clear');
 
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
+        return redirect()->back()->with('success','kategori wewewe berhasil di update!');
     }
 
     /**
@@ -145,7 +146,7 @@ class RoleController extends Controller
 
     public function changeStatus(Role $role)
     {
-        $role->status = $role->status === 'active' ? 'inactive' : 'Active';
+        $role->status = $role->status === 'active' ? 'inactive' : 'active';
         $role->save();
 
         return response()->json([

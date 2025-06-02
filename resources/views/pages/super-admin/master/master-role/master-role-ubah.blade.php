@@ -8,32 +8,39 @@
                     <i class="fa fa-check-circle" style="color: #12D962;"></i>
                     <p class="text-1">Success</p>
                     <p class="text-2">Update Role Succesfully</p>
-                    <a href="{{ route('super-admin.master.role.index') }}" class="button">OK</a>
+                    <a href="{{ route('backend.datamaster.roles.index') }}" class="button">OK</a>
                 </div>
             </div>
         </div>
 
-        <div class="top-page">
-            <div class="groupDiv">
-                <a href="{{ route('super-admin.master.role.index') }}"><img
-                        src='{{ asset('images/icon/arrow-back.svg') }}'></a>
-                <h1 class="text-1">Daftar Role <span>/ Ubah Role</span></h1>
+        <form method="POST" class="formdata" action="{{ route('backend.datamaster.roles.update', $role->id) }}">
+            @csrf
+            @method('PUT')
+            <div class="top-page">
+                <div class="groupDiv">
+                    <a href="{{ route('backend.datamaster.roles.index') }}"><img
+                            src='{{ asset('images/icon/arrow-back.svg') }}'></a>
+                    <h1 class="text-1">Daftar Role <span>/ Ubah Role</span></h1>
+                </div>
+                <button id="simpan" type="submit" class="button">Simpan</button>
             </div>
-            <a id="simpan" class="button">Simpan</a>
-        </div>
 
-        <div class="out-box">
-            <div class="box" style="width: 100%">
-                <div class="text-box">
-                    <p><span>*</span>Kode Role</p>
-                    <input type="text" class="input-style" placeholder="Masukkan Nama">
-                </div>
-                <div class="text-box">
-                    <p><span>*</span>Nama Role</p>
-                    <input type="text" class="input-style" placeholder="Masukkan Nama Role">
+            <div class="out-box">
+                <div class="box" style="width: 100%">
+                    <div class="text-box">
+                        <p><span>*</span>Kode Role</p>
+                        <input type="text" class="input-style" name="code" value="{{ $role->code }}"
+                            placeholder="Masukkan Kode">
+                    </div>
+                    <div class="text-box">
+                        <p><span>*</span>Nama Role</p>
+                        <input type="text" class="input-style" name="name" value="{{ $role->name }}"
+                            placeholder="Masukkan Nama Role">
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+
     </div>
 @endsection
 
