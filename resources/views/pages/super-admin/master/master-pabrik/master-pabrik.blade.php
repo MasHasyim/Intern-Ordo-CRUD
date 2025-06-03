@@ -70,71 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>PB1</td>
-                        <td>Pabrik Goa Gong</td>
-                        <td>Goa Gong</td>
-                        <td>Jl. Taman Giri No. 5A, Gresik, Jawa Timur</td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.pabrik.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-trash hapus" style="color: #DC3545;"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>PB2</td>
-                        <td>Pabrik Goa Gong</td>
-                        <td>Goa Gong</td>
-                        <td>Jl. Taman Giri No. 5A, Gresik, Jawa Timur</td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.pabrik.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-trash hapus" style="color: #DC3545;"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>PB3</td>
-                        <td>Pabrik Goa Gong</td>
-                        <td>Goa Gong</td>
-                        <td>Jl. Taman Giri No. 5A, Gresik, Jawa Timur</td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.pabrik.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-trash hapus" style="color: #DC3545;"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>PB4</td>
-                        <td>Pabrik Goa Gong</td>
-                        <td>Goa Gong</td>
-                        <td>Jl. Taman Giri No. 5A, Gresik, Jawa Timur</td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.pabrik.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-trash hapus" style="color: #DC3545;"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>PB5</td>
-                        <td>Pabrik Goa Gong</td>
-                        <td>Goa Gong</td>
-                        <td>Jl. Taman Giri No. 5A, Gresik, Jawa Timur</td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.pabrik.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-trash hapus" style="color: #DC3545;"></a>
-                            </div>
-                        </td>
-                    </tr>
+                
                 </tbody>
             </table>
         </div>
@@ -145,6 +81,31 @@
     <script>
         $(document).ready(function() {
             $('#table-master-user').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('backend.datamaster.factories.index') }}',
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    }, {
+                        data: 'code',
+                    },
+                    {
+                        data: 'name',
+                    },
+                    {
+                        data: 'location',
+                    },
+                    {
+                        data: 'address',
+                    },
+                    {
+                        data: 'action',
+                        sortable: false,
+                        searchable: false,
+                    },
+                ],
+
                 scrollX: true,
                 responsive: true,
                 columnDefs: [{
@@ -266,6 +227,36 @@
             hapusButtons.forEach(button => {
                 button.addEventListener('click', togglePopupHapus2);
             });
+        });
+
+        $(document).on('click','.hapus', function(e){
+            e.preventDefault();
+
+            let url = $(this).data('route');
+
+            if (url) {
+                fetch(url,{
+                    method: 'DELETE',
+                    headers:{
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then (respone =>{
+                    if(!respone.ok){
+                        throw new Error('Gagal menghapus data.')
+                    }
+                    return respone.json();
+                })
+                .then(data => {
+                    alert(data.message || 'Data berhasil dihapus.');
+                    $('#tabel-master-user').DataTable().ajax.reload();
+                })
+                .catch(error => {
+                    alert('Terjadi kesalahan:' + error.message);
+                });
+            }
         });
     </script>
 @endpush

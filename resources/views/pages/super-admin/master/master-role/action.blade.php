@@ -3,7 +3,7 @@
         style="color: #FFC107; cursor: pointer;"></a>
     <div class="ellipsis-container">
         <button class="ellipsis-button">
-            <i class="fa fa-ellipsis-v" style="color: black;"></i>
+            <i class="fa fa-ellipsis-v" style="color: black; cursor: pointer"></i>
         </button>
         <div class="modal-ellipsis">
             <a class="ubahStatus" data-id="{{ $item->id }}" data-status="{{ $item->status }}"
