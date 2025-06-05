@@ -70,7 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+
                 </tbody>
             </table>
         </div>
@@ -229,34 +229,35 @@
             });
         });
 
-        $(document).on('click','.hapus', function(e){
+        $(document).on('click', '.hapus', function(e) {
             e.preventDefault();
 
             let url = $(this).data('route');
 
             if (url) {
-                fetch(url,{
-                    method: 'DELETE',
-                    headers:{
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then (respone =>{
-                    if(!respone.ok){
-                        throw new Error('Gagal menghapus data.')
-                    }
-                    return respone.json();
-                })
-                .then(data => {
-                    alert(data.message || 'Data berhasil dihapus.');
-                    $('#tabel-master-user').DataTable().ajax.reload();
-                })
-                .catch(error => {
-                    alert('Terjadi kesalahan:' + error.message);
-                });
+                fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(respone => {
+                        if (!respone.ok) {
+                            throw new Error('Gagal menghapus data.')
+                        }
+                        return respone.json();
+                    })
+                    .then(data => {
+                        alert(data.message || 'Data berhasil dihapus kiw.');
+                        $('#table-master-user').DataTable().ajax.reload();
+                    })
+                    .catch(error => {
+                        alert('Terjadi kesalahan:' + error.message);
+                    });
             }
         });
+
     </script>
 @endpush

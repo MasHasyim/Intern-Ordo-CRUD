@@ -21,9 +21,10 @@
                             src='{{ asset('images/icon/arrow-back.svg') }}'></a>
                     <h1 class="text-1">Daftar Role <span>/ Tambah Role</span></h1>
                 </div>
-                <button class="border-0 bg-transparent" type="submit">
-                    <a class="button">Simpan</a>
+                <button class="button border-0 bg-transparent" type="submit">
+                    Simpan
                 </button>
+
             </div>
 
             <div class="out-box">

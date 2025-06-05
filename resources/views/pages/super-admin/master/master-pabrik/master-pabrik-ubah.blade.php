@@ -8,42 +8,52 @@
                     <i class="fa fa-check-circle" style="color: #12D962;"></i>
                     <p class="text-1">Success</p>
                     <p class="text-2">Update Pabrik Succesfully</p>
-                    <a href="{{ route('super-admin.master.pabrik.index') }}" class="button">OK</a>
+                    <a href="{{ route('backend.datamaster.factories.index') }}" class="button">OK</a>
                 </div>
             </div>
         </div>
 
-        <div class="top-page">
-            <div class="groupDiv">
-                <a href="{{ route('super-admin.master.pabrik.index') }}"><img
-                        src='{{ asset('images/icon/arrow-back.svg') }}'></a>
-                <h1 class="text-1">Daftar Pabrik <span>/ Ubah Pabrik</span></h1>
-            </div>
-            <a id="simpan" class="button">Simpan</a>
-        </div>
+        <form method="POST" class="formdata" action="{{ route('backend.datamaster.factories.update', $factory->id) }}">
+            @csrf
+            @method('PUT')
 
-        <div class="box">
-            <div class="box2">
-                <div class="text-box">
-                    <p style="margin-bottom: 5px"><span>*</span>Kode Pabrik</p>
-                    <input type="text" placeholder="Kode Pabrik">
+            <div class="top-page">
+                <div class="groupDiv">
+                    <a href="{{ route('backend.datamaster.factories.index') }}"><img
+                            src='{{ asset('images/icon/arrow-back.svg') }}'></a>
+                    <h1 class="text-1">Daftar Pabrik <span>/ Ubah Pabrik</span></h1>
                 </div>
-                <div class="text-box">
-                    <p style="margin-bottom: 5px"><span>*</span>Nama Pabrik</p>
-                    <input type="text" placeholder="Nama Pabrik">
+                <button id="simpan" class="button border-0 " type="submit">
+                    Simpan
+                </button>
+
+            </div>
+
+            <div class="box">
+                <div class="box2">
+                    <div class="text-box">
+                        <p style="margin-bottom: 5px"><span>*</span>Kode Pabrik</p>
+                        <input type="text" name="code" placeholder="Kode Pabrik" value="{{ $factory->code }}">
+                    </div>
+                    <div class="text-box">
+                        <p style="margin-bottom: 5px"><span>*</span>Nama Pabrik</p>
+                        <input type="text" name="name" placeholder="Nama Pabrik" value="{{ $factory->name }}">
+                    </div>
+                </div>
+                <div class="box2">
+                    <div class="text-box">
+                        <p style="margin-bottom: 5px"><span>*</span>Lokasi Pabrik</p>
+                        <input type="text" name="location" placeholder="Masukkan Lokasi Pabrik"
+                            value="{{ $factory->location }}">
+                    </div>
+                    <div class="text-box">
+                        <p style="margin-bottom: 5px"><span>*</span>Alamat</p>
+                        <input type="text" name="address" placeholder="Masukkan Alamat" value="{{ $factory->address }}">
+                    </div>
                 </div>
             </div>
-            <div class="box2">
-                <div class="text-box">
-                    <p style="margin-bottom: 5px"><span>*</span>Lokasi Pabrik</p>
-                    <input type="text" placeholder="Masukkan Lokasi Pabrik">
-                </div>
-                <div class="text-box">
-                    <p style="margin-bottom: 5px"><span>*</span>Alamat</p>
-                    <input type="text" placeholder="Masukkan Alamat">
-                </div>
-            </div>
-        </div>
+        </form>
+
     </div>
 @endsection
 

@@ -41,6 +41,7 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
         return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
+
     }
 
     public function show(string $id)

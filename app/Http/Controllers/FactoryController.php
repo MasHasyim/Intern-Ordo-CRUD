@@ -20,6 +20,7 @@ class FactoryController extends Controller
             $query = Factory::query();
 
             return DataTables::of($query)
+                ->addIndexColumn()
                 ->addColumn('action', function ($item): string {
                     return view('pages.super-admin.master.master-pabrik.action', get_defined_vars(), compact('item'))->render();
                 })
@@ -55,7 +56,7 @@ class FactoryController extends Controller
             'address' => $validated['address'],
             'location' => $validated['location'],
         ]);
-        return redirect()->route('backend.datamaster.factories.index')->with('success', 'Role berhasil ditambahkan');
+        return redirect()->route('backend.datamaster.factories.create')->with('success', 'Create Pabrik Succesfully');
     }
 
     /**
@@ -96,7 +97,6 @@ class FactoryController extends Controller
         }
 
         return redirect()->back()->with('success', 'Pabrik berhasil di update!');
-
     }
 
     /**
@@ -105,14 +105,20 @@ class FactoryController extends Controller
     public function destroy(Factory $factory)
     {
         try {
+            DB::beginTransaction();
+
             $factory->delete();
 
+            DB::commit();
             return response()->json([
-                'message'=>'Data pabrik berhasil dihapus.'
-            ]);
+                'success' => true,
+                'message' => 'Data pabrik berhasil dihapus.',
+            ], 200);
         } catch (Exception $e) {
+            DB::rollback();
             return response()->json([
-                'message'=>'Gagal menghapus data.',
+                'success' => false,
+                'message' => 'Gagal menghapus data pabrik.',
                 'error' => $e->getMessage()
             ], 500);
         }
