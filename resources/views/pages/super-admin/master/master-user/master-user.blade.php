@@ -82,181 +82,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Meghan</td>
-                        <td>meghan</td>
-                        <td>meghan@gmail.com</td>
-                        <td>Admin Trolley</td>
-                        <td>Pabrik Taman Giri</td>
-                        <td>
-                            <div>
-                                <p>Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.user.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-eye" href="{{ route('super-admin.master.user.detail') }}"
-                                    style="color: #28A745; cursor: pointer;"></a>
-                                <div class="ellipsis-container">
-                                    <button class="ellipsis-button">
-                                        <i class="fa fa-ellipsis-v" style="color: black;"></i>
-                                    </button>
-                                    <div class="modal-ellipsis">
-                                        <a style="cursor: pointer" class="ubahStatus">
-                                            <i class="fa fa-pencil-alt" style="color: black;"></i>
-                                            <span>Ubah Status</span>
-                                        </a>
-                                        <a class="hapus" style="cursor: pointer">
-                                            <i class="fa fa-trash" style="color: black;"></i>
-                                            <span>Hapus</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nana</td>
-                        <td>nana</td>
-                        <td>nana@gmail.com</td>
-                        <td>Admin Logistik</td>
-                        <td>Pabrik Taman Giri</td>
-                        <td>
-                            <div>
-                                <p>Inactive</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.user.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-eye" href="{{ route('super-admin.master.user.detail') }}"
-                                    style="color: #28A745; cursor: pointer;"></a>
-                                <div class="ellipsis-container">
-                                    <button class="ellipsis-button">
-                                        <i class="fa fa-ellipsis-v" style="color: black;"></i>
-                                    </button>
-                                    <div class="modal-ellipsis">
-                                        <a style="cursor: pointer" class="ubahStatus">
-                                            <i class="fa fa-pencil-alt" style="color: black;"></i>
-                                            <span>Ubah Status</span>
-                                        </a>
-                                        <a class="hapus" style="cursor: pointer">
-                                            <i class="fa fa-trash" style="color: black;"></i>
-                                            <span>Hapus</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nara</td>
-                        <td>nara</td>
-                        <td>nara@gmail.com</td>
-                        <td>Admin Logistik</td>
-                        <td>Pabrik Long Goa</td>
-                        <td>
-                            <div>
-                                <p>Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.user.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-eye" href="{{ route('super-admin.master.user.detail') }}"
-                                    style="color: #28A745; cursor: pointer;"></a>
-                                <div class="ellipsis-container">
-                                    <button class="ellipsis-button">
-                                        <i class="fa fa-ellipsis-v" style="color: black;"></i>
-                                    </button>
-                                    <div class="modal-ellipsis">
-                                        <a style="cursor: pointer" class="ubahStatus">
-                                            <i class="fa fa-pencil-alt" style="color: black;"></i>
-                                            <span>Ubah Status</span>
-                                        </a>
-                                        <a class="hapus" style="cursor: pointer">
-                                            <i class="fa fa-trash" style="color: black;"></i>
-                                            <span>Hapus</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>John</td>
-                        <td>john</td>
-                        <td>john@gmail.com</td>
-                        <td>Driver</td>
-                        <td>Pabrik Long Goa</td>
-                        <td>
-                            <div>
-                                <p>Inactive</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.user.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-eye" href="{{ route('super-admin.master.user.detail') }}"
-                                    style="color: #28A745; cursor: pointer;"></a>
-                                <div class="ellipsis-container">
-                                    <button class="ellipsis-button">
-                                        <i class="fa fa-ellipsis-v" style="color: black;"></i>
-                                    </button>
-                                    <div class="modal-ellipsis">
-                                        <a style="cursor: pointer" class="ubahStatus">
-                                            <i class="fa fa-pencil-alt" style="color: black;"></i>
-                                            <span>Ubah Status</span>
-                                        </a>
-                                        <a class="hapus" style="cursor: pointer">
-                                            <i class="fa fa-trash" style="color: black;"></i>
-                                            <span>Hapus</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Inas Wayan</td>
-                        <td>inaswayan</td>
-                        <td>inaswayan@gmail.com</td>
-                        <td>Admin Washer</td>
-                        <td>Pabrik Long Goa</td>
-                        <td>
-                            <div>
-                                <p>Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="menu-button">
-                                <a class="fa fa-pencil-alt" href="{{ route('super-admin.master.user.ubah') }}"
-                                    style="color: #FFC107; cursor: pointer;"></a>
-                                <a class="fa fa-eye" href="{{ route('super-admin.master.user.detail') }}"
-                                    style="color: #28A745; cursor: pointer;"></a>
-                                <div class="ellipsis-container">
-                                    <button class="ellipsis-button">
-                                        <i class="fa fa-ellipsis-v" style="color: black;"></i>
-                                    </button>
-                                    <div class="modal-ellipsis">
-                                        <a style="cursor: pointer" class="ubahStatus">
-                                            <i class="fa fa-pencil-alt" style="color: black;"></i>
-                                            <span>Ubah Status</span>
-                                        </a>
-                                        <a class="hapus" style="cursor: pointer">
-                                            <i class="fa fa-trash" style="color: black;"></i>
-                                            <span>Hapus</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    {{-- replace to notepad --}}
                 </tbody>
             </table>
         </div>
@@ -267,6 +93,36 @@
     <script>
         $(document).ready(function() {
             $('#table-master-user').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('backend.datamaster.user.index') }}',
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    }, {
+                        data: 'name',
+                    },
+                    {
+                        data: 'username',
+                    },
+                    {
+                        data: 'email',
+                    },
+                    {
+                        data: 'role',
+                    },
+                    {
+                        data: 'pabrik',
+                    },
+                    {
+                        data: 'status',
+                    },
+                    {
+                        data: 'action',
+                        sortable: false,
+                        searchable: false,
+                    },
+                ],
                 scrollX: true,
                 responsive: true,
                 columnDefs: [{

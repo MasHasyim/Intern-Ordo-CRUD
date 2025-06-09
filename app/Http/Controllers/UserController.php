@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -13,7 +14,24 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = User::query();
+            $query = User::with(['role', 'factory'])->select('users.*');
+
+            return DataTables::of($query)
+            ->addColumn('role',function($user){
+                return $user->role->name ?? '-';
+            })
+            ->addColumn('factory',function($user){
+                return $user->factory->name ?? '-';
+            })
+            ->editColumn('status', function ($item) {
+                    return $item->status === 'active' ? 'Active' : 'Inactive';
+                })
+                ->addColumn('action', function ($item) {
+                    return view('pages.super-admin.master.master-user.action', get_defined_vars());
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+            
         }
         return view('pages.super-admin.master.master-user.master-user');
     }
@@ -23,7 +41,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.super-admin.master.master-user.master-user-add');
     }
 
     /**
@@ -31,7 +49,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'role_id' => 'required|exists:roles,id',
+            'factory_id' => 'required|exists:factories,id',
+            // 'status' => 'required|'
+        ]);
+
+        $user = User::create([]);
     }
 
     /**
@@ -47,7 +75,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('pages.super-admin.master.master-user.master-user-ubah', get_defined_vars());
     }
 
     /**
