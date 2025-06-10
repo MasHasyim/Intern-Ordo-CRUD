@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -59,7 +61,19 @@ class UserController extends Controller
             // 'status' => 'required|'
         ]);
 
-        $user = User::create([]);
+        User::create([
+            'name' => $validated['name'],
+            'username' => $validated['username'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+            'role_id' => $validated['role_id'],
+            'factory_id' => $validated['factory_id'],
+            // 'status' => $validated['status'],
+        ]);
+
+        return redirect()->route('backend.datamaster.user.index')->with('success','User berhasil ditambahkan!');
+
+
     }
 
     /**
@@ -67,7 +81,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('pages.super-admin.master.master-user.master-user-detail');
     }
 
     /**
@@ -83,7 +97,44 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username'.$user->id,
+            'email' => 'required|email|max:255|unique:users,email'.$user->id,
+            'password' => 'required|string|min:8|confirmed',
+            'role_id' => 'required|exists:roles,id',
+            'factory_id' => 'required|exists:factories,id',
+            // 'status' => 'required|'
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $data =[
+            'name' => $validated['name'],
+            'username' => $validated['username'],
+            'email' => $validated['email'],
+            'role_id' => $validated['role_id'],
+            'factory_id' => $validated['factory_id'],
+        ];
+
+        if (!empty($validated['password'])) {
+            $data['password'] = bcrypt($validated['password']);
+        }
+
+        $user->update($data);
+
+        DB::commit();
+
+        return redirect()->route('backend.datamaster.user.index')->with('success', 'User berhasil diperbaruhi!');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            redirect()->back()-with('error','Terjadi kesalahan saat memperbaruhi user.');
+        }
+
+        
+        
     }
 
     /**
@@ -91,6 +142,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        try {
+            $user->delete();
+            return redirect()->route('backend.datamaster.user.index')->with('success','User berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('backend.datamaster.user.index')->with('error', 'Gagal menghapus user: ' .$e->getMessage());
+        }
     }
 }

@@ -72,6 +72,7 @@
             <table id="table-master-user">
                 <thead>
                     <tr>
+                        <th class="d-none"></th>
                         <th>Nama</th>
                         <th>Username</th>
                         <th>Email</th>
@@ -166,6 +167,8 @@
                     }
 
                 },
+                pageLength: 5,
+                dom: 'tip',
                 initComplete: function() {
                     $('.dataTables_info').each(function() {
                         var text = $(this).text();
@@ -184,6 +187,9 @@
                     });
                 }
             });
+            $('#table-master-user').DataTable().on('draw.dt', function() {
+                $(this).DataTable().columns.adjust();
+            });
             $(document).on('click', '.ellipsis-button', function(e) {
                 e.stopPropagation();
                 var $modal = $(this).siblings('.modal-ellipsis');
@@ -194,6 +200,10 @@
             $(document).on('click', function() {
                 $('.modal-ellipsis').hide();
             });
+        });
+
+        $('searchable').on('keyup', function() {
+            $('#table-master-user').DataTable().search($('searchable').val()).draw();
         });
 
         document.addEventListener('DOMContentLoaded', () => {
