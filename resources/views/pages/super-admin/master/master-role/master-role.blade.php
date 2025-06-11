@@ -89,7 +89,9 @@
             $('#table-master-user').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('backend.datamaster.roles.index') }}',
+                ajax: {
+                    url:`{{ route('backend.datamaster.roles.index') }}`, 
+                }, 
                 columns: [{
                         data: 'code',
                     },

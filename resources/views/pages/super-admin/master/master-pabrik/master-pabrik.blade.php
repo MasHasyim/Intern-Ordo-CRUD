@@ -83,7 +83,9 @@
             $('#table-master-user').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('backend.datamaster.factories.index') }}',
+                ajax: {
+                    url:`{{ route('backend.datamaster.factories.index') }}`,
+                },
                 columns: [{
                         data: 'id',
                         visible: false

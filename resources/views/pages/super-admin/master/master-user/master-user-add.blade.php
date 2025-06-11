@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <form action="{{ route('backend.datamaster.user.store') }}">
+        <form method="POST" class="formdata" action="{{ route('backend.datamaster.user.store') }}">
             @csrf
             <div class="top-page">
                 <div class="groupDiv">
@@ -40,24 +40,36 @@
                     </div>
                     <div class="text-box">
                         <p><span>*</span>Password</p>
-                        <div class="input-wrapper"></div>
-                        <input type="password" name="password" class="input-style" placeholder="Password">
+                        <div class="input-wrapper" style="flex-direction: column">
+                            <div style="position: relative ; width 100%">
+                                <input type="password" name="password" class="input-style" placeholder="Password"
+                                    id='password'>
+                                <i class="bi bi-eye-slash input-postfix" id="togglePassword"
+                                    onclick="togglePasswordVisibility()"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="box3">
                     <div class="text-box">
                         <p><span>*</span>Role</p>
                         <div class="select-wrapper-arrow">
-                            <select name="" id="">
-                                <option value="" selected disabled>Role</option>
+                            <select name="role_id" id="role_id">
+                                <option value="" selected disabled>- Pilih Role -</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="text-box">
                         <p><span>*</span>Pabrik</p>
                         <div class="select-wrapper-arrow">
-                            <select name="" id="">
-                                <option value="" selected disabled>Pabrik</option>
+                            <select name="factory_id" id="factory_id">
+                                <option value="" selected disabled>- Pilih Pabrik -</option>
+                                @foreach ($factories as $factory)
+                                    <option value="{{ $factory->id }}">{{ $factory->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -69,6 +81,21 @@
 
 @push('script')
     <script>
+        function togglePasswordVisibility() {
+            var password = document.getElementById('password');
+            var icon = document.getElementById('togglePassword')
+
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const popup = document.getElementById('popUpSimpan');
             const simpan = document.getElementById('simpan');

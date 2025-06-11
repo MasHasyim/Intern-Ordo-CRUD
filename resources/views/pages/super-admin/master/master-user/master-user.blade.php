@@ -94,26 +94,34 @@
     <script>
         $(document).ready(function() {
             $('#table-master-user').DataTable({
+                scrollX: true,
+                scrollY: 'calc(100vh - 400px)',
+                responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('backend.datamaster.user.index') }}',
+                ajax: {
+                    url: `{{ route('backend.datamaster.user.index') }}`,
+                },
                 columns: [{
                         data: 'id',
                         visible: false
                     }, {
                         data: 'name',
+                        // sortable: true,
                     },
                     {
                         data: 'username',
+                        // sortable: true,
                     },
                     {
                         data: 'email',
+                        // sortable: true, 
                     },
                     {
                         data: 'role',
                     },
                     {
-                        data: 'pabrik',
+                        data: 'factory',
                     },
                     {
                         data: 'status',
@@ -124,8 +132,6 @@
                         searchable: false,
                     },
                 ],
-                scrollX: true,
-                responsive: true,
                 columnDefs: [{
                         targets: '_all',
                         defaultContent: '-'
@@ -176,7 +182,7 @@
                     });
 
                     $('#table-master-user tbody tr').each(function() {
-                        var statusDiv = $(this).find('td').eq(5).find('div');
+                        var statusDiv = $(this).find('td').eq(6).find('div');
                         var statusText = statusDiv.text().trim();
 
                         if (statusText === 'Active') {

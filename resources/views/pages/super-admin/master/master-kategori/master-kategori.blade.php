@@ -95,7 +95,9 @@
             $('#table-master-user').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('super-admin.master.kategori.category.index') }}',
+                ajax: {
+                    url: `{{ route('super-admin.master.kategori.category.index') }}`,
+                }
                 columns: [{
                         data: 'id',
                         visible: false
