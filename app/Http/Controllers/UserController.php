@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Exception;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -19,13 +23,13 @@ class UserController extends Controller
             $query = User::with(['role', 'factory'])->select('users.*');
 
             return DataTables::of($query)
-            ->addColumn('role',function($user){
-                return $user->role->name ?? '-';
-            })
-            ->addColumn('factory',function($user){
-                return $user->factory->name ?? '-';
-            })
-            ->editColumn('status', function ($item) {
+                ->addColumn('role', function ($user) {
+                    return $user->role->name ?? '-';
+                })
+                ->addColumn('factory', function ($user) {
+                    return $user->factory->name ?? '-';
+                })
+                ->editColumn('status', function ($item) {
                     return $item->status === 'active' ? 'Active' : 'Inactive';
                 })
                 ->addColumn('action', function ($item) {
@@ -33,9 +37,8 @@ class UserController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-            
         }
-        return view('pages.super-admin.master.master-user.master-user');
+        return view('pages.super-admin.master.master-user.master-user', get_defined_vars());
     }
 
     /**
@@ -43,7 +46,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.super-admin.master.master-user.master-user-add');
+        $roles = Role::all();
+        $factories = Factory::all();
+        return view('pages.super-admin.master.master-user.master-user-add', compact('roles', 'factories'));
     }
 
     /**
@@ -55,7 +60,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|max:50',
             'role_id' => 'required|exists:roles,id',
             'factory_id' => 'required|exists:factories,id',
             // 'status' => 'required|'
@@ -71,9 +76,7 @@ class UserController extends Controller
             // 'status' => $validated['status'],
         ]);
 
-        return redirect()->route('backend.datamaster.user.index')->with('success','User berhasil ditambahkan!');
-
-
+        return redirect()->route('backend.datamaster.user.index')->with('success', 'User berhasil ditambahkan!');
     }
 
     /**
@@ -81,7 +84,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('pages.super-admin.master.master-user.master-user-detail');
+        return view('pages.super-admin.master.master-user.master-user-detail', get_defined_vars());
     }
 
     /**
@@ -99,9 +102,9 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username'.$user->id,
-            'email' => 'required|email|max:255|unique:users,email'.$user->id,
-            'password' => 'required|string|min:8|confirmed',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|max:50',
             'role_id' => 'required|exists:roles,id',
             'factory_id' => 'required|exists:factories,id',
             // 'status' => 'required|'
@@ -110,31 +113,27 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            $data =[
-            'name' => $validated['name'],
-            'username' => $validated['username'],
-            'email' => $validated['email'],
-            'role_id' => $validated['role_id'],
-            'factory_id' => $validated['factory_id'],
-        ];
+            $data = [
+                'name' => $validated['name'],
+                'username' => $validated['username'],
+                'email' => $validated['email'],
+                'role_id' => $validated['role_id'],
+                'factory_id' => $validated['factory_id'],
+            ];
 
-        if (!empty($validated['password'])) {
-            $data['password'] = bcrypt($validated['password']);
-        }
+            if (!empty($validated['password'])) {
+                $data['password'] = bcrypt($validated['password']);
+            }
 
-        $user->update($data);
+            $user->update($data);
 
-        DB::commit();
+            DB::commit();
 
-        return redirect()->route('backend.datamaster.user.index')->with('success', 'User berhasil diperbaruhi!');
-
+            return redirect()->route('backend.datamaster.user.index')->with('success', 'User berhasil diperbaruhi!');
         } catch (Exception $e) {
             DB::rollBack();
-            redirect()->back()-with('error','Terjadi kesalahan saat memperbaruhi user.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbaruhi user.');
         }
-
-        
-        
     }
 
     /**
@@ -143,10 +142,28 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
+            DB::beginTransaction();
+
             $user->delete();
-            return redirect()->route('backend.datamaster.user.index')->with('success','User berhasil dihapus!');
+            Artisan::call('cache:clear');
+
+            DB::commit();
+            return redirect()->route('backend.datamaster.user.index')->with('success', 'User berhasil dihapus!');
         } catch (\Exception $e) {
-            return redirect()->route('backend.datamaster.user.index')->with('error', 'Gagal menghapus user: ' .$e->getMessage());
+            DB::rollBack();
+            return redirect()->route('backend.datamaster.user.index')->with('error', 'Gagal menghapus user: ' . $e->getMessage());
         }
+    }
+
+    public function changeStatus(User $user)
+    {
+        $user->status = $user->status === 'active' ? 'inactive' : 'active';
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diperbaruhi.',
+            'new_status' => $user->status
+        ]);
     }
 }

@@ -11,8 +11,9 @@
                 <div class="content2">
                     <p>Status</p>
                     <div class="select-wrapper-arrow">
-                        <select name="" id="">
-                            <option value="" selected disabled>Active</option>
+                        <select name="status" id="statusSelect">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
                         </select>
                     </div>
                 </div>

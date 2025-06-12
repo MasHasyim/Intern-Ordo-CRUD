@@ -3,7 +3,7 @@
 @section('content')
     <div class="master-user-detail">
         <div class="top-page">
-            <a href="{{ route('super-admin.master.user.index') }}"><img src='{{ asset('images/icon/arrow-back.svg') }}'></a>
+            <a href="{{ route('backend.datamaster.user.index') }}"><img src='{{ asset('images/icon/arrow-back.svg') }}'></a>
             <h1 class="text-1">User <span>/ Detail</span></h1>
         </div>
 
@@ -11,36 +11,37 @@
             <div class="text-box">
                 <div class="inside-box">
                     <p>Status</p>
-                    <p id="checkActive">Active</p>
+                    <p id="checkActive" class="{{ $user->status === 'active' ? 'status-active' : 'status-inactive' }}">
+                        {{ ucfirst($user->status) }}</p>
                 </div>
             </div>
             <div class="border2"></div>
             <div class="text-box">
                 <p>Nama</p>
-                <p class="text-2">Meghan</p>
+                <p class="text-2">{{ $user->name }}</p>
             </div>
             <div class="border2"></div>
             <div class="box2">
                 <div class="text-box">
                     <p>Username</p>
-                    <p class="text-2">meghan</p>
+                    <p class="text-2">{{ $user->username }}</p>
                     <div class="border2"></div>
                 </div>
                 <div class="text-box">
                     <p>Email</p>
-                    <p class="text-2">meghan@gmail.com</p>
+                    <p class="text-2">{{ $user->email }}</p>
                     <div class="border2"></div>
                 </div>
             </div>
             <div class="box3">
                 <div class="text-box">
                     <p>Role</p>
-                    <p class="text-2">Admin Trolley</p>
+                    <p class="text-2">{{ $user->role->name }}</p>
                     <div class="border2"></div>
                 </div>
                 <div class="text-box">
                     <p>Pabrik</p>
-                    <p class="text-2">Pabrik Taman Giri</p>
+                    <p class="text-2">{{ $user->factory->name }}</p>
                     <div class="border2"></div>
                 </div>
             </div>
@@ -72,17 +73,17 @@
     </script>
 @endpush
 
-@push('script')
+{{-- @push('script')
     <script>
         $(document).ready(function() {
             var statusDiv = $('#checkActive'); // Target the correct element
             var statusText = statusDiv.text().trim(); // Get the text and trim whitespace
 
-            if (statusText === 'Active') {
+            if (statusText.toLowerCase() === 'Active') {
                 statusDiv.addClass('status-active'); // Add the active class
-            } else if (statusText === 'Inactive') {
+            } else if (statusText.toLowerCase() === 'Inactive') {
                 statusDiv.addClass('status-inactive'); // Add the inactive class
             }
         });
     </script>
-@endpush
+@endpush --}}

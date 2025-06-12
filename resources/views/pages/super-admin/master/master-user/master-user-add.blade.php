@@ -27,23 +27,23 @@
             <div class="box">
                 <div class="text-box">
                     <p><span>*</span>Username</p>
-                    <input type="text" name="username" class="input-style" placeholder="Masukkan Username">
+                    <input type="text" name="username" class="input-style" placeholder="Masukkan Username" required>
                 </div>
                 <div class="text-box">
                     <p><span>*</span>Nama</p>
-                    <input type="text" name="name" class="input-style" placeholder="Masukkan Nama">
+                    <input type="text" name="name" class="input-style" placeholder="Masukkan Nama" required>
                 </div>
                 <div class="box2">
                     <div class="text-box">
                         <p><span>*</span>Email</p>
-                        <input type="text" name="email" class="input-style" placeholder="Masukkan Email">
+                        <input type="email" name="email" class="input-style" placeholder="Masukkan Email" required>
                     </div>
                     <div class="text-box">
                         <p><span>*</span>Password</p>
                         <div class="input-wrapper" style="flex-direction: column">
-                            <div style="position: relative ; width 100%">
+                            <div style="position: relative ; width: 100%">
                                 <input type="password" name="password" class="input-style" placeholder="Password"
-                                    id='password'>
+                                    id='password' required>
                                 <i class="bi bi-eye-slash input-postfix" id="togglePassword"
                                     onclick="togglePasswordVisibility()"></i>
                             </div>
@@ -54,10 +54,10 @@
                     <div class="text-box">
                         <p><span>*</span>Role</p>
                         <div class="select-wrapper-arrow">
-                            <select name="role_id" id="role_id">
+                            <select name="role_id" id="role_id" >
                                 <option value="" selected disabled>- Pilih Role -</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : ''}}>{{ $role->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -68,7 +68,7 @@
                             <select name="factory_id" id="factory_id">
                                 <option value="" selected disabled>- Pilih Pabrik -</option>
                                 @foreach ($factories as $factory)
-                                    <option value="{{ $factory->id }}">{{ $factory->name }}</option>
+                                    <option value="{{ $factory->id }}" {{ old('factory_id') == $factory->id ? 'selected' : ''}}>{{ $factory->name }}</option>
                                 @endforeach
                             </select>
                         </div>
