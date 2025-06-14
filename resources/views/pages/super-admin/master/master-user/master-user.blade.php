@@ -64,7 +64,7 @@
                 </div>
                 <div class="button">
                     <div class="fas fa-plus" style="font-size: 15px; margin-right: 5px;"></div>
-                    <a href="{{ route('super-admin.master.user.add') }}">Tambah User</a>
+                    <a href="{{ route('backend.datamaster.user.create') }}">Tambah User</a>
                 </div>
             </div>
         </div>

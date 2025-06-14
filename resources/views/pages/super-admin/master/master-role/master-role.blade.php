@@ -90,8 +90,8 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url:`{{ route('backend.datamaster.roles.index') }}`, 
-                }, 
+                    url: `{{ route('backend.datamaster.roles.index') }}`,
+                },
                 columns: [{
                         data: 'code',
                     },
